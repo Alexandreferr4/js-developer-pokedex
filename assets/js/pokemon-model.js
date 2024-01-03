@@ -4,4 +4,7 @@ class Pokemon {
     type;
     types = [];
     photo;
+    about_name = [];
+    about_value = [];
+
 }
