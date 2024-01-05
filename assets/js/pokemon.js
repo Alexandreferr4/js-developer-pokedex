@@ -4,8 +4,11 @@ const pokemonName = decodeURIComponent(urlParams.get("name"));
 const pokemonPhoto = decodeURIComponent(urlParams.get("photo"));
 const pokemonTypes = JSON.parse(decodeURIComponent(urlParams.get("types")));
 // const pokemonNameAbout = JSON.parse(decodeURIComponent(urlParams.get("nomeAbout")));
-const pokemonNameAbout = decodeURIComponent(urlParams.get("nomeAbout"));
-const pokemonValueAbout = decodeURIComponent(urlParams.get("valueAbout"));
+const pokemonNameAbout = JSON.parse(decodeURIComponent(urlParams.get("nomeAbout")));
+const pokemonValueAbout = JSON.parse(decodeURIComponent(urlParams.get("valueAbout")));
+
+// const pokemonNameAbout = decodeURIComponent(urlParams.get("nomeAbout")); Funciona
+// const pokemonValueAbout = decodeURIComponent(urlParams.get("valueAbout")); Funciona
 
 console.log(pokemonNameAbout);
 console.log(pokemonValueAbout);
@@ -14,8 +17,8 @@ console.log(pokemonValueAbout);
 document.getElementById("pokemonDetails").style.backgroundColor = getBackgroundColor(pokemonTypes);
 document.getElementById("pokemonImage").src = pokemonPhoto;
 document.getElementById("pokemonNumber").textContent = `#${pokemonNumber}`;
-document.getElementById("nomeAbout").textContent = pokemonNameAbout;
-document.getElementById("valueAbout").textContent = pokemonValueAbout;
+// document.getElementById("nomeAbout").textContent = pokemonNameAbout; // Funciona
+// document.getElementById("valueAbout").textContent = pokemonValueAbout; // Funciona
 
 
 const typesList = document.getElementById("pokemonTypes");
@@ -26,14 +29,29 @@ pokemonTypes.forEach((type) => {
   typesList.appendChild(typeElement);
 });
 
-// const nomeAboutList = document.getElementById("pokemonNameAbout");
-// pokemonNameAbout.forEach((nomeAb) => {
-//     const nomeAbElement = document.createElement("li");
-//     nomeAbElement.className = `nomeAb ${nomeAb.toLowerCase()}`;
-//     nomeAb.textContent = nomeAb;
-//     nomeAboutList.appendChild(nomeAb);
-//     console.log(nomeAboutList);
-// })
+const detailName = document.getElementById("nomeAbout");
+const detailValue = document.getElementById("valueAbout");
+
+
+// Utilizar um Set para armazenar valores únicos
+const uniquePokemonNameAbout = new Set(pokemonNameAbout);
+// const uniquePokemonValueAbout = new Set(pokemonValueAbout);
+
+
+uniquePokemonNameAbout.forEach((nameAbout) => {
+  const aboutNameElement = document.createElement("li");
+  aboutNameElement.className = `nameAbout`;
+  aboutNameElement.textContent = `${nameAbout} :`;
+  detailName.appendChild(aboutNameElement);
+});
+
+pokemonValueAbout.forEach((valueAbout) => {
+  const aboutValueElement = document.createElement("li");
+  aboutValueElement.className = `valueAbout`;
+  aboutValueElement.textContent = valueAbout;
+  detailValue.appendChild(aboutValueElement);
+});
+
 
 
 function getBackgroundColor(types) {
